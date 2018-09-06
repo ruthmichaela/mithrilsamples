@@ -1,50 +1,64 @@
-var root = document.body;
+const root = document.body;
 
-var Planter = {
-   clickCount: 0,
+const PLANT_IMAGES = [
+	"img/pot.png",
+	"img/dirt.png",
+	"img/cactus.png",
+	"img/blooms.png",
+	"img/pricks.png"
+];
 
-    view: function(vnode){
-        return [
-            m("div", {
-                class: "plantBox"
-            }),
-
-            m("img", {
-                src: vnode.attrs.url,
-                onclick: function(clickCount) {
-                    clickCount = clickCount++;
-
-                    if(vnode.state.clickCount == 1){
-                        vnode.attrs.url = "https://img1.etsystatic.com/127/1/6395286/il_170x135.1087570373_4h2o.jpg";
-                    } else if (vnode.state.clickCount == 2){
-                        vnode.attrls.url = "https://media.istockphoto.com/vectors/prickly-pear-cactus-vector-vector-id617375616?s=170x170";
-                    } else if (vnode.state.clickCount == 3) {
-                        vnode.attrs.url = "https://media.istockphoto.com/vectors/prickly-pear-cactus-vector-vector-id617375616?s=170x170";
-                    } else if(vnode.state.clickCount == 4){
-                        vnode.attrs.url = "https://thumbs.dreamstime.com/t/funny-surprised-surprised-cactus-cute-frightened-plant-character-cartoon-vector-illustration-funny-surprised-surprised-cactus-cute-102562087.jpg";
-                    } else{
-                        vnode.attrs.url = null;
-                    }
-                }
-            })
-        ]
-    }
+const Planter = {
+	clickCount: 0,
+	
+	view: function(vnode){
+		
+		return m("img", {
+			src: PLANT_IMAGES[vnode.state.clickCount],
+			onclick: function() {
+				if(vnode.state.clickCount == 5){
+					return;
+				}
+				
+				vnode.state.clickCount = vnode.state.clickCount+1;
+			}
+		});
+	}
 }
 
-var Garden = {
-    view: function(vnode){
-       return m(Planter, {
-            url: "https://thumbs.dreamstime.com/t/watercolor-cactus-beautiful-vector-image-nice-53412963.jpg",
-        })
-    }
+const Garden = {
+	rows: 2,
+	columns: 2,
+	
+	view: function(vnode){
+		
+		const rowsOfPlants = [];
+		for(let row = 0; row < vnode.state.rows; row++) {
+			const columnPlants = [];
+			for(let column = 0; column < vnode.state.columns; column++){
+				columnPlants.push(m(Planter));
+			}
+			
+			rowsOfPlants.push(m('div', {class: "plant-rows"}, columnPlants));
+		}
+		
+		return [
+			m("div", {class: "top"}, 
+				m("h1", "Click to Prick"),
+				m("p", "select your plant count, rows then columns"),
+				m("input", {type: "number", value: vnode.state.rows, min: 1, oninput: function(event) {
+					vnode.state.rows = event.target.value;
+				}}),
+				
+				m("input", {type: "number", value: vnode.state.columns, min: 1, oninput: function(event) {
+					vnode.state.columns = event.target.value;
+				}})
+			),	
+				
+				m("div", {class: "garden-box"}, rowsOfPlants)
+			
+		]
+	}
 }
 
 m.mount(root, Garden)
-
-/* There is going to be a grid of divs and in each div there is going to 
-be an image of a 4 pieces of plant state. Every time the user clicks
-the plant art changes.
-
-On every "onclick" the image will change. OPTIONS:
-Keep count of the clicks. So if click <= 1 src = "svg1", 
-if click <= 2 src = "svg2", and if click <= 0 src = null. */

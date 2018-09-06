@@ -1,0 +1,179 @@
+html {
+	background: url(https://images.unsplash.com/photo-1522110062882-5882267d3ea3?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a1da3dd5647ca21e9f9d6fe890798b64&auto=format&fit=crop&w=400&q=80) no-repeat center center fixed; 
+	background-size: cover;
+}
+
+body {
+	font-family: 'Open Sans', sans-serif;
+	color: #fff;
+	display: flex;
+	min-height: 100vh;
+	margin: 0;
+	flex-direction: column;
+}
+
+table{
+	width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+}
+
+h1{
+	font-weight: 300;
+	font-size: 144px;
+	text-shadow:0px 0px 10px rgba(0, 0, 0, .5);
+}
+
+p{
+	text-shadow:0px 0px 10px rgba(0, 0, 0, .5);
+}
+
+h2{
+	font-weight: 300;
+	font-size: 40px;
+	text-shadow:0px 0px 10px rgba(0, 0, 0, .5);
+}
+
+h3{
+	font-weight: 400;
+	font-size: 22px;
+	text-shadow:0px 0px 10px rgba(0, 0, 0, .5);
+}
+
+
+#city-text {
+	font-size: 20px;
+	text-transform: uppercase;
+	letter-spacing: 5px;
+	
+}
+
+.current{
+	text-align: center;
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.location{
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+footer{
+	text-align: center;
+	margin-bottom: 80px;
+	border-top: 8px solid rgba(256, 256, 256, .5);
+	border-bottom: 8px solid rgba(256, 256, 256, .5);
+}
+
+.forecast-day{
+	font-weight: 400;
+	font-size: 20px;
+}
+
+.forecast-deg{
+	font-weight: 500;
+	font-size: 36px;
+	
+}
+
+.icon{
+	
+	max-width: 100px;
+	max-height: 100px;
+}
+
+a{
+	font-size: 14px;
+	color: #fff;
+	
+}
+
+header{
+	margin: 10px;
+}
+
+/*mobile madness begins*/
+
+/* Tablet */
+/* @media (max-width: 768px) {
+	h1{
+		font-size: 18px;
+	}
+} */
+
+/* Phone */
+@media (max-width: 425px) and (orientation: portrait) {
+	h1 {
+		font-size: 72px;
+	}
+	h2 {
+		font-size: 34px;
+	}
+	#city-text {
+		font-size: 18px;
+		letter-spacing: 2px;
+	}
+	
+	footer {
+		margin-bottom: 16px;
+		border-width: 2px;
+	}
+	.forecast-deg {
+		font-size: 18px;
+	}
+	
+	.forecast-day {
+		font-size: 12px;
+	}
+	
+	.icon {
+		max-width: 50px;
+		max-height: 50px;
+	}
+}
+
+@media (max-width: 665px) and (orientation: landscape) {
+	h1 {
+		font-size: 90px;
+	}
+	
+	h2 {
+		font-size: 26px;
+	}
+	
+	h3{
+		font-size: 18px;	
+	}
+	
+	#city-text {
+		font-size: 17px;
+		letter-spacing: 3px;
+		margin-top: 20px;
+	}
+	
+	footer {
+		margin-bottom: 16px;
+		border-width: 4px;
+	}
+	.forecast-deg {
+		font-size: 26px;
+	}
+	
+	.forecast-day {
+		font-size: 18px;
+	}
+	
+	.icon {
+		max-width: 60px;
+		max-height: 60px;
+	}
+	
+	header{
+		font-size: 12px;
+	}
+}
