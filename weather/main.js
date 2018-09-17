@@ -11,8 +11,10 @@ function fetchWeatherData(location) {
 		fetchUnsplashData(weatherData.query.results.channel.item.condition.text);
 	});
 }
+if(localStorage.location != undefined){
+	fetchWeatherData(localStorage.location);
+}
 
-fetchWeatherData("New York");
 
 let unsplashData = null;
 
@@ -26,10 +28,28 @@ function fetchUnsplashData(condition){
 }
 
 const WeatherApp = {
+	locationInput: false,
+	
 	view: function(vnode) {
 		
 		if(weatherData == null) {
-			return m("p", "Loading...");
+			return [
+				m("div", {class: "start-container"},
+				m("h1", {class: "header-start"}, "Where would you like your weather from today?"),
+				m("p", "Enter your zip code and press enter"),
+				m("input", {
+					class: "input-start",
+					type: "text", 
+					placeholder: "Zip Code", 
+					onkeydown: function(event) {
+						if (event.keyCode == 13) {
+							fetchWeatherData(event.target.value);
+							vnode.state.locationInput = false;
+							localStorage.location = event.target.value;
+						}
+					}
+				})
+			)]
 		}
 		
 		const forecastBlockMaker = [];
@@ -51,8 +71,35 @@ const WeatherApp = {
 		
 		return m("div", {class: "app", style: styleObject}, [
 			m("header",
-				unsplashData ? m("a", {href: unsplashData.user.links.html}, unsplashData.user.name + " on Unsplash") : null,
+				[
+					unsplashData ? m("a", {href: unsplashData.user.links.html}, unsplashData.user.name + " on Unsplash") : null,
+					
+					vnode.state.locationInput ?
+						m("input", {
+							type: "text", 
+							placeholder: "Zip Code", 
+							style: {float: "right"},
+							onkeydown: function(event) {
+								if (event.keyCode == 13) {
+									fetchWeatherData(event.target.value);
+									vnode.state.locationInput = false;
+									localStorage.location = event.target.value;
+								}
+							}
+						})
+					:
+						m("img", {
+							src: "img/gear.png",
+							width: 20, height: 20,
+							style: {float: "right", opacity: 0.5, cursor: 'pointer'},
+							onclick: function() {
+								vnode.state.locationInput = true;
+							}
+						}),
+				]
 			),
+			
+			
 			
 			m("div", {class: "current"}, [
 				m("h1", weatherData.query.results.channel.item.condition.temp + "\xB0"),
@@ -77,12 +124,28 @@ const WeatherApp = {
 };
 
 function getImageForCondition(condition) {
-	if(condition == "rain") {
-		return "img/rain.png";
-	} else {
-		return "img/default_broken.png";
+	switch (condition) {
+		case "Rain":
+			return "img/Rain.png";
+		case "Sun":
+			return "img/Sun.png";
+		case "Cloudy":
+			return "img/Cloudy.png"
+		case "Partly Cloudy":
+			return "img/Cloudy.png";
+		case "Mostly Cloudy":
+			return "img/Cloudy.png"
+		case "Scattered Thunderstorms":
+			return "img/Rain.png";
+		case "Sunny":
+			return "img/Sun.png";
+		case "Mostly Sunny":
+			return "img/Sun.png";
+		default:
+			return "img/default_broken.png";
 	}
 }
+
 
 const ForecastBlock = {
 	view: function(vnode) {
