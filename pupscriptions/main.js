@@ -6,20 +6,38 @@ const dog = {
 	medications: [
 		{
 			name: "Rimadyl",
-			dose:  0,
+			dose:  1,
+			schedule: [
+				{
+					am: true,
+					pm: false
+				},
+				{
+					am: true,
+					pm: false,
+				},
+				{
+					am: true,
+					pm: false
+				},
+				{
+					am: true,
+					pm: false,
+				},
+				{
+					am: true,
+					pm: false
+				},
+				{
+					am: true,
+					pm: false,
+				},
+				{
+					am: true,
+					pm: false
+				}
+			]
 		},
-	],
-	days: [
-		{
-			name: "Sunday",
-			timeA: "AM",
-			timeB: "PM"
-		},
-		{
-			name: "Monday",
-			timeA: "AM",
-			timeB: "PM"
-		}
 	],
 };
 
@@ -42,8 +60,9 @@ const Pupscript = {
 		} else {
 			const formElements = [];
 			for(let i = 0; i < dog.medications.length; i++){
-				formElements.push(m(MedicationForm, {medication: dog.medications[i]}));
-				formElements.push(m(Schedule, {selection: dog.days[i]}));
+				formElements.push(
+					m(MedicationForm, {medication: dog.medications[i]})
+				);
 			}
 				
 			return [
@@ -75,6 +94,12 @@ const Pupscript = {
 
 const MedicationForm = {
 	view: function(vnode) {
+		
+		const eachDay = [];
+		for(let i = 0; i < vnode.attrs.medication.schedule.length; i++){
+			eachDay.push(m(ScheduleDay, {dayOfWeek:i}));
+		}
+		
 		return [
 			//medication name
 			m("p", "Enter medication name"),
@@ -85,37 +110,24 @@ const MedicationForm = {
 			}),
 			m("p", "Enter the number of pills to give each time"),
 			m('input', {placeholder:"0", value: vnode.attrs.medication.dose}),
+			
+			eachDay
 		]
 	}
 };
 
+const DAYS_OF_WEEK_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-/*Current Issues for Schedule:*/
-/*Only displaying one day per click. Likely an issue with the loop I'm using above or in the way the object is setup. ???*/
-
-const Schedule = {
+const ScheduleDay = {
 	view: function(vnode){
-		return [
-		m("p", "Choose which days and times to give the medications"),
-		
-		//MAYBE LOOP OVER THE ARRAY TO CREATE THIS STUFF FOR EVERY DAY?
-		m("div", {class: "weekdays"},
-			m("p", vnode.attrs.selection.name),
-			m("p", vnode.attrs.selection.timeA),
-			m('input', {value: "AM", type: "checkbox",
-				oninput: function(event){
-					vnode.attrs.selection.timeA = event.target.value;
-				}
-			}),
-			m("p", vnode.attrs.selection.timeB),
-			m('input', {value: "PM", type: "checkbox",
-				oninput: function(event){
-					vnode.attrs.selection.timeB = event.target.value;
-				}
-			}),
-		), 
-		m("hr"),
-		]}
+		return m("div", [
+			m("span", DAYS_OF_WEEK_NAMES[vnode.attrs.dayOfWeek]),
+			m("input", {type: "checkbox", checked: true}),
+			m("span", "AM"),
+			m("input", {type: "checkbox", checked: true}),
+			m("span", "PM")
+		]);
+	}	
 }
 
 m.mount(root, Pupscript);
