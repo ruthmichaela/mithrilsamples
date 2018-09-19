@@ -1,0 +1,3 @@
+Program variables and their uses
+
+dogsName: holds the name of the dog as provided by user input.

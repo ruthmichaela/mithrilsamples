@@ -1,0 +1,9 @@
+THINGS TO DO
+
+1. Once the user inputs the dog's name, replace the field with dog's name
+2. Make the button for meds appear only after dogs name has been entered.
+
+Thinking through the button...
+inputComplete true/false. If inputComplete is false, then the field is visible. If inputComplete is true (changes upon user pressing enter), then field is hidden.
+
+^^^ start here first before then disaplaying button. 
