@@ -1,5 +1,11 @@
 body {
 	font-family: 'Muli', sans-serif;
+/*	background-image: url("img/background.jpg");
+	background-repeat: no-repeat;
+    background-size: cover;*/
+    min-height: 100vh;
+	margin: 0;
+    background-image: linear-gradient(135deg, #a7cfdf 0%,#33cccc 100%);
 }
 
 .button-box{
@@ -9,38 +15,44 @@ body {
 
 button {
 	text-align: left;
-	font-size: 12px;
-    background-color: #33cccc;
+	font-size: 14px;
+    background-color: #ff5050;
     border: 0;
     border-radius: 10px;
     -webkit-appearance: none;
     padding: 11px;
-    font-weight: bold;
+    font-weight: 700;
     color: #fff;
     margin: 10px;
     font-family: 'Muli', sans-serif;
 }
 
 h1 {
-	color: #33cccc;
-	font-size: 24px;
+	color: #ff5050;
+	font-size: 28px;
+	margin-top: 25px;
 }
 
-p {
+h2 {
 	color: #33cccc;
 	font-size: 16px;
-	font-weight: 300;
+	font-weight: 700;
+}
+
+
+p {
+	color: #a4a4a4;
+	font-size: 16px;
 	
 }
 
-input {
+input.field {
 	border:3px solid #33cccc;
 	background-color: #EBEBEB;
 	color: #33cccc;
 	border-radius: 10px;
 	width: 150px;
 	padding: 10px;
-	margin: 10px;
 	font-weight: 400;
 	font-family: 'Muli', sans-serif;
 }
@@ -52,7 +64,58 @@ input:focus {
     box-shadow:0 0 10px #9ecaed;
 }
 
+::placeholder { /* Most modern browsers support this now. */
+   color: #a4a4a4;
+}
+
 hr {
 	border: none;
-	border-top: 1px solid #33cccc;
+	border-top: 1px solid #e6e6e6;
+	width: 50%;
+}
+
+.day-names {
+	color: #a4a4a4;
+	font-size: 16px;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+.times {
+	color: #a4a4a4;
+	font-size: 12px;
+	font-weight: 700;
+}
+
+table {
+	border-spacing: 10px;
+}
+
+.main-container {
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 500px;
+    margin-left: 500px;
+    margin-top: 50px;
+    padding-bottom: 50px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px grey;
+    background: #fff;
+}
+
+.intro-div {
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 500px;
+    margin-left: 500px;
+    margin-top: 50px;
+    padding-bottom: 50px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px grey;
+    background: #fff;
+	
 }
