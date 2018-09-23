@@ -48,10 +48,12 @@ const Pupscript = {
 	dogNameInput: null,
 	
 	view: function(vnode){
-		
 		var medsSidebar = []
 		for(let i = 0; i < dog.medications.length; i++){
-			medsSidebar.push(m("p", {class: "side-text"}, dog.medications[i].name + " " + dog.medications[i].strength + "mg"));
+			medsSidebar.push(m("a", {
+				class: "side-text",
+				href: "#medication-" + i,
+			}, dog.medications[i].name + " " + dog.medications[i].strength + "mg"));
 		}
 		
 		
@@ -81,7 +83,7 @@ const Pupscript = {
 			console.log('I am the pupscript component. I can see dog.', dog);
 			for(let i = 0; i < dog.medications.length; i++){
 				formElements.push(
-					m(MedicationForm, {medication: dog.medications[i]})
+					m(MedicationForm, {medication: dog.medications[i], id:i})
 				);
 			}
 			
@@ -173,32 +175,33 @@ const MedicationForm = {
 		
 		return [
 			//medication name
-			m("img", {
-					src:"img/pills.png", 
-					class: "pill-bottle", 
-					alt: "graphic of pill bottle and two pills"}),
-			m("h2", "Medication name:"),
-			m('input', {placeholder: "Name", class: "field", value: vnode.attrs.medication.name, 
-				oninput: function(event){
-					vnode.attrs.medication.name = event.target.value; //this is what makes the user input get stored as data
-				}
-			}),
-			m("h2", "Milligram:"),
-			m('input', {placeholder: 250, class: "field", value: vnode.attrs.medication.strength, 
-				oninput: function(event){
-					vnode.attrs.medication.strength = event.target.value; //this is what makes the user input get stored as data
-				}
-			}),
-			m("h2", "Number of pills per dose:"),
-			m('input', {placeholder:"0", class: "field", value: vnode.attrs.medication.dose,
-				oninput: function (event) {
-					vnode.attrs.medication.dose = event.target.value;
-				}
-			}),
-			m("h2", "Days and times to give medication:"),
-			m("table", eachDay),
-			m("hr")
-			
+			m("div", {id: "medication-" + vnode.attrs.id}, [
+				m("img", {
+						src:"img/pills.png", 
+						class: "pill-bottle", 
+						alt: "graphic of pill bottle and two pills"}),
+				m("h2", "Medication name:"),
+				m('input', {placeholder: "Name", class: "field", value: vnode.attrs.medication.name, 
+					oninput: function(event){
+						vnode.attrs.medication.name = event.target.value; //this is what makes the user input get stored as data
+					}
+				}),
+				m("h2", "Milligram:"),
+				m('input', {placeholder: 250, class: "field", value: vnode.attrs.medication.strength, 
+					oninput: function(event){
+						vnode.attrs.medication.strength = event.target.value; //this is what makes the user input get stored as data
+					}
+				}),
+				m("h2", "Number of pills per dose:"),
+				m('input', {placeholder:"0", class: "field", value: vnode.attrs.medication.dose,
+					oninput: function (event) {
+						vnode.attrs.medication.dose = event.target.value;
+					}
+				}),
+				m("h2", "Days and times to give medication:"),
+				m("table", eachDay),
+				m("hr")
+			])
 		]
 	}
 };
@@ -225,16 +228,6 @@ const ScheduleDay = {
 			m("td", {class: "times"}, "PM")
 			
 		]);
-	}	
-}
-
-const SideBar = {
-	view: function(vnode){
-		return m("div", {class: "side-bar"}, [
-					m("h2", dog.name + "'s" + " med box"),
-					m("h2", dog.name + "'s" + " total medications: " + dog.medications.length),
-						
-		])
 	}	
 }
 
