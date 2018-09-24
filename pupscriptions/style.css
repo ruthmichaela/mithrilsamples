@@ -13,6 +13,7 @@ body {
 	flex-direction: row;
 }
 
+
 button {
 	text-align: left;
 	font-size: 14px;
@@ -127,9 +128,10 @@ table {
    /* justify-content: left;*/
     align-items: left;
     margin-top: 50px;
-    margin-left: 420px;
+    margin-left: -450px;
     padding-bottom: 50px;
     border-radius: 5px;
+    min-width: 250px;
 /*    box-shadow: 0px 0px 15px grey;
 */    background: #356d87;
 }
@@ -152,17 +154,28 @@ p.side-text {
 p.side-text-total {
 	color: #fff;
 	margin: 10px;
-	font-size: 16px;
-	font-weight: 700;
+	font-size: 15px;
+	font-weight: 400;
 	padding: 5px;
 }
 
 h2.side-text {
-	font-size: 16px;
+	font-size: 17px;
 	color: #fff;
 	margin: 10px;
 	padding: 5px;
-	text-decoration: underline;;
+	font-weight: 700;
+}
+
+h2.side-text-dog {
+	font-family: 'Zilla Slab', serif;
+	font-weight: 400;
+	font-size: 24px;
+	font-family: ;
+	color: #fff;
+	margin: 10px;
+	padding: 5px;
+	text-decoration: none;
 }
 
 h3.side-text {
@@ -201,6 +214,10 @@ a:visited.side-text {
 /*    box-shadow: 0px 0px 15px grey;
 */    background: #fff;
     border: solid 3px #c8dfea;
-    
-	
+    max-width: 600px;
+}
+
+.pill-bottle {
+	max-width: 50px;
+	padding: 10px;
 }
