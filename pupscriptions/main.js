@@ -54,6 +54,7 @@ const dog = {
 };
 
 
+//MEDICATION SETTINGS
 
 const Pupscript = {
 	dogNameInput: null,
@@ -171,7 +172,7 @@ const Pupscript = {
 							}
 						}, "+ " + "add another medication"),
 						
-						m("button", "Done"), //will go to route2
+						m("button[href=/mylist]", {oncreate: m.route.link}, "Done")
 					
 					//("code", JSON.stringify(dog)) //gives up to date view of dog
 					)
@@ -180,7 +181,7 @@ const Pupscript = {
 					//sidebar
 					m("span", {class: "side-container"}, [
 						m("h2", {class: "side-text-dog"}, dog.name),
-						m("hr", {class: "side-hr"}),
+						m("hr", {class: "side-hr"}), 
 						m("img", {
 						src:"img/pills.png", 
 						class: "pill-bottle", 
@@ -292,4 +293,40 @@ const ScheduleDay = {
 }
 
 
-m.mount(root, Pupscript);
+//VIEW OF MEDS LIST
+
+const PupscriptViewer = {
+	view: function(vnode){
+	
+		const medDetails = [];
+		for(let i = 0; i < dog.medications.length; i++){
+			medDetails.push(
+				m("li", {id:i}, 
+					m("input", {
+						type: "checkbox",
+						id: "check-" + [i],
+					},
+						m("label", {for:"check-" + [i]}),
+				),
+			dog.medications[i].name + " " + dog.medications[i].strength + " " + dog.medications[i].dose));
+		}
+		
+		return [
+			m("div", {class: "main-container"},
+				m("h1", dog.name), //how is this working if only Pupscript can "see" dog?
+				m("p", {id: "date"}, "Today's date goes here"),
+				m("hr", {class: "onwhite"}),
+				m("ul", medDetails),
+			)
+		]
+	}
+};
+
+
+m.route(root, "/", {
+    "/": Pupscript,
+    "/mylist": PupscriptViewer
+})
+
+
+//m.mount(root, Pupscript);
